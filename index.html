@@ -34,13 +34,13 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 8%;
-            background-color: rgba(11, 15, 25, 0.7);
+            background-color: rgba(11, 15, 25, 0.9);
             backdrop-filter: blur(10px);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .logo {
@@ -66,7 +66,7 @@
             color: var(--point-color);
         }
 
-        /* 🎬 비디오 배경 히어로 섹션 */
+        /* 메인 히어로 섹션 */
         .hero {
             height: 100vh;
             display: flex;
@@ -74,56 +74,20 @@
             justify-content: center;
             align-items: flex-start;
             padding: 0 8%;
+            background: linear-gradient(135deg, rgba(11,15,25,1) 40%, rgba(22,28,45,0.6) 100%);
             position: relative;
             overflow: hidden;
         }
 
-        /* ✨ [밝기 개선] 브라우저 필터를 통해 영상 밝기(115%)와 대비(105%)를 자체 업그레이드 */
-        .video-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 1;
-            image-rendering: -webkit-optimize-contrast;
-            filter: brightness(1.15) contrast(1.05); 
-        }
-
-        /* 미세 패턴 레이어 (영상이 밝아졌으므로 패턴 투명도를 0.1로 더 맑게 낮춤) */
-        .video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: radial-gradient(rgba(0, 0, 0, 0.1) 15%, transparent 15%);
-            background-size: 3px 3px;
-            background-color: rgba(11, 15, 25, 0.05); /* 차단막을 거의 제로에 가깝게 걷어냄 */
-            background-blend-mode: overlay;
-            z-index: 2;
-        }
-
-        /* 영상이 많이 밝아졌기 때문에 글자가 있는 왼쪽 아래 영역만 부드러운 음영 그라데이션 적용 */
-        .video-overlay::after {
+        .hero::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(11, 15, 25, 0.45) 25%, transparent 80%);
-            z-index: 2;
-        }
-
-        /* 콘텐츠가 영상 위에 뜨도록 설정 */
-        .hero-content {
-            position: relative;
-            z-index: 3;
-            max-width: 700px;
-            /* 밝아진 영상 배경에 맞춰 글씨가 묻히지 않도록 이중 그림자 처리(고급 가독성 기법) */
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7), 0 4px 20px rgba(0, 0, 0, 0.4);
+            right: -10%;
+            bottom: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,107,0,0.15) 0%, rgba(0,0,0,0) 70%);
+            z-index: 1;
         }
 
         .hero h1 {
@@ -131,6 +95,7 @@
             font-weight: 800;
             line-height: 1.2;
             margin-bottom: 20px;
+            z-index: 2;
         }
 
         .hero h1 span {
@@ -139,12 +104,13 @@
 
         .hero p {
             font-size: 18px;
-            color: #ffffff; 
+            color: var(--text-sub);
+            max-width: 600px;
             margin-bottom: 40px;
+            z-index: 2;
         }
 
         .cta-btn {
-            display: inline-block;
             padding: 15px 35px;
             background-color: var(--point-color);
             color: white;
@@ -152,21 +118,17 @@
             font-weight: 600;
             border-radius: 4px;
             transition: transform 0.3s, background-color 0.3s;
-            text-shadow: none; /* 버튼 글씨는 그림자 제외 */
-            box-shadow: 0 4px 15px rgba(255, 107, 0, 0.3); /* 버튼 자체에 은은한 오렌지 광채 부여 */
+            z-index: 2;
         }
 
         .cta-btn:hover {
             background-color: #e05e00;
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255, 107, 0, 0.5);
         }
 
         /* 공통 섹션 스타일 */
         section {
             padding: 100px 8%;
-            position: relative;
-            z-index: 10;
         }
 
         .section-title {
@@ -190,9 +152,8 @@
         /* 회사 개요 양식 */
         .about-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1max));
             gap: 30px;
-            margin-bottom: 60px;
         }
 
         .about-card {
@@ -220,71 +181,6 @@
             color: var(--text-sub);
             margin-top: 8px;
             font-weight: 400;
-        }
-
-        /* 🏅 신뢰 및 인증서 섹션 */
-        .cert-title-sub {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 25px;
-            color: #cbd5e1;
-        }
-
-        .cert-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-        }
-
-        .cert-card {
-            background-color: #0e1320;
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 25px;
-            text-align: center;
-            transition: transform 0.3s, border-color 0.3s;
-        }
-
-        .cert-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--point-color);
-        }
-
-        .cert-img-wrapper {
-            width: 100%;
-            height: 380px;
-            background-color: #1e293b;
-            border-radius: 6px;
-            overflow: hidden;
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .cert-img-wrapper img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            background-color: #ffffff;
-            opacity: 0.9;
-            transition: opacity 0.3s;
-        }
-
-        .cert-card:hover .cert-img-wrapper img {
-            opacity: 1;
-        }
-
-        .cert-card h4 {
-            font-size: 18px;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 5px;
-        }
-
-        .cert-card p {
-            font-size: 14px;
-            color: var(--text-sub);
         }
 
         /* 제조 물품 (제품 소개) */
@@ -337,8 +233,6 @@
             border-top: 1px solid var(--border-color);
             font-size: 14px;
             color: var(--text-sub);
-            position: relative;
-            z-index: 10;
         }
 
         .footer-content {
@@ -367,25 +261,18 @@
             <a href="#home">Home</a>
             <a href="#about">About</a>
             <a href="#products">Products</a>
+            <a href="#portfolio">AI Portfolio</a>
         </nav>
     </header>
 
     <section id="home" class="hero">
-        <video class="video-background" autoplay loop muted playsinline preload="auto">
-            <source src="비에이텍 1.mp4" type="video/mp4">
-        </video>
-        <div class="video-overlay"></div>
-        
-        <div class="hero-content">
-            <h1>Blue Advanced<br>Technology <span>BAETEC</span></h1>
-            <p>비에이텍 주식회사는 고효율 모터펌프 및 친환경 진공·부스터 펌프 제조 기술을 바탕으로 대한민국 조달 산업 및 상하수도 시설 확충에 기여하는 프리미엄 유체기계 전문 기업입니다.</p>
-            <a href="#products" class="cta-btn">제조 기술 확인하기</a>
-        </div>
+        <h1>Blue Advanced<br>Technology <span>BIETEC</span></h1>
+        <p>비에이텍 주식회사는 고효율 모터펌프 및 친환경 진공·부스터 펌프 제조 기술을 바탕으로 대한민국 조달 산업 및 상하수도 시설 확충에 기여하는 프리미엄 유체기계 전문 기업입니다.</p>
+        <a href="#products" class="cta-btn">제조 기술 확인하기</a>
     </section>
 
     <section id="about">
         <h2 class="section-title">Corporate Overview</h2>
-        
         <div class="about-grid">
             <div class="about-card">
                 <h3>Company</h3>
@@ -406,24 +293,6 @@
                 <h3>Certification</h3>
                 <p>ISO 9001 & Main-Biz</p>
                 <span>중기간경쟁물품 직접생산 확인 완료</span>
-            </div>
-        </div>
-
-        <h3 class="cert-title-sub">Proven Technology & Trust</h3>
-        <div class="cert-grid">
-            <div class="cert-card">
-                <div class="cert-img-wrapper">
-                    <img src="비에이텍사진_02.png" alt="경영혁신형 중소기업 확인서">
-                </div>
-                <h4>Main-Biz 인증</h4>
-                <p>중소벤처기업부 장관 인정 경영혁신형 중소기업</p>
-            </div>
-            <div class="cert-card">
-                <div class="cert-img-wrapper">
-                    <img src="비에이텍사진01.png" alt="강원도지사 표창장">
-                </div>
-                <h4>강원도지사 표창</h4>
-                <p>지역 산업 발전 및 유체기계 기술 혁신 공로 표창</p>
             </div>
         </div>
     </section>
